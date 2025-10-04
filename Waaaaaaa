@@ -1,0 +1,38 @@
+using UnityEngine;
+
+public class WallTarget : MonoBehavior{
+    string typ = "Red";
+    float time = 0
+    int Hit = 0;
+    [SerializeField]
+    GameObject dooooor;
+
+    private void Start(){
+        GetComponent<Renderer>().material.color = Color.red;
+    }
+
+    private void Update(){
+        timer += Time.deltaTime;
+        if (timer >= 1f){
+            timer = 0;
+            if (typ == "Red"){
+                typ = "Blue";
+                GetComponent<MeshRenderer>().material.color = Color.blue;
+            } else {
+                typ = "Red";
+                GetComponent<MeshRenderer>().material.color = Color.red;
+            }
+        } 
+    }
+
+    public void Hit(string cor){
+        if (cor == typ){
+            Hit++;
+            if (Hit >= 3){
+                Vector3 poss = dooooor.transform.position;
+                dooooor.transform.position = new Vector3(poss.x, poss.y + 5f, pos.z);
+            }
+        }
+    }
+
+}
