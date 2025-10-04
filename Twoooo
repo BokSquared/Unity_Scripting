@@ -1,0 +1,45 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class BulletShoot : MonoBehavior{
+    [SerializeField]
+    InputActionAsset ctr
+
+    [SerializeField]
+    GameObject redBut, blueBut;
+
+    GameObject activeBut;
+
+    string cur = "Red";
+
+    private void Start(){
+        activeBut = redBut;
+    }
+
+    private void OnEnable(){
+        ctr.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable(){
+        ctr.FindActionMap("Player").Disable();
+    }
+
+    private void Update(){
+        if (ctr.FindAction("Switch").WasPressedThisFrame()){ //Switch -> Interact
+            if (cur == "Red"){
+                cur =="Blue";
+                activeBut = blueBut;
+            } else {
+                cur = "Red";
+                activeBut = redBut;
+            }
+        }
+
+        if (ctr.FindAction("Shoot").WasPressedThisFrame()){ //Shoot -> Attack
+            GameObject b = Instantiate(activeBut);
+            b.transform.position = transform.position + transform.forward * 1.5f;
+            b.transform.rotation = transform.rotation;
+            b.GetComponent<Bullet>().SetShoot(transform);
+        }
+    }
+}
