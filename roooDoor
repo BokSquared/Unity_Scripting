@@ -1,0 +1,19 @@
+using UnityEngine;
+
+public class RoDoor : MonoBehavior{
+    bool openn;
+    
+    private void Start(){
+
+    }
+
+    private void Update(){
+        if (openn){
+            transform.Rotate(0, 30f, * Time.deltaTime, 0);
+        }
+    }
+
+    public void Open(){
+        openn = true;
+    }
+}
