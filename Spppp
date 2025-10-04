@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class SphereTarget : MonoBehavior{
+    [SerializeField]
+    GameObject roDoor;
+
+    string typp;
+
+    private void Start(){
+        int rand = Random.Range(0, 2);
+        if (rand == 0){
+            typp = "Red";
+            GetComponent<MeshRenderer>().material.color = Color.red;
+        } else {
+            typp = "Blue";
+            GetComponent<MeshRenderer>().material.color = Color.blue;
+        }
+    }
+
+    public void Hit(string cttr){
+        if (cttr == typp){
+            Destroy(gameObject);
+
+            if (FindObjectOfType<SphereTarget>().Length == 1){
+                roDoor.GetComponent<RotatingDoor>().Open();
+            }
+        }
+    }
+
+}
