@@ -1,0 +1,57 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehavior{
+    [SerializeField]
+    InputActionAsset controlAsset;
+
+    [SerializeField]
+    CharacterController playerCTRL;
+
+    Vector3 respawnPosition; 
+    float drop;
+
+
+    private void Start(){
+        playerCTRL = GetComponent<CharacterController>();
+        respawnPosition = transform.position;
+        drop = 0; 
+        
+    }
+
+    private void OnEnable(){
+        controlAsset.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable(){
+        controlAsset.FindActionMap("Player").Disable();
+    }
+
+    private void Update(){
+        Vector2 gmove = controlAsset.FindAction("Move").ReadValue<Vector2>() * .1f;
+        Vector3 move = new Vector3(gmove.x, 0, , move.y);
+
+        Vector2 glook = controlAsset.FindAction("Look").ReadValue<Vector2>() * .1f;
+        transform.Rotate(0, glook, 0);
+
+        //move = transform.TransformDirection(move);
+        //controlAsset.Move(move * 5f * Time.deltaTime);
+
+        if (!controlAsset.IsGrounded){
+            drop = -.1f;
+        } else {
+            drop = 0f;
+        }
+
+        //controlAsset.Move(Vector3.up * fallSpeed[drop] * Time.deltaTime);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit Hit){
+        if (hit.collider.name == "Safety Net"){
+            transform.position = respawnPositionp;
+        }
+    }
+
+
+    
+}
