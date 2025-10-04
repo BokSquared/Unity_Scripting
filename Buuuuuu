@@ -1,0 +1,39 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Bullet : MonoBehavior{
+    Transform sho;
+    RigidBody bulletRigid;
+
+    public void Start(){
+        bulletRigid = GetComponent<RigidBody>();
+        bulletRigid.AddRelativeForce(0,0,3000);
+        Destroy(gameObject, 2);
+    }
+
+    private void SetShoot(Transform s){
+        sho = s;
+    }
+
+    private void Update(){
+        bulletRigid.AddTorque(1,1,1);
+
+
+        transform.Translate(Vector3.forward * 10f * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision ot){
+        if (sho != null){
+            transform.position = sho.position * sho.forward * 1.5f;
+        }
+
+        if (ot.gameObject.CompareTag("WallTarget")){
+            ot.gameObject.GetComponent<WallTarget>().Hit(gameObject.tag);
+        }
+
+        if (ot.gameObject.CompareTag("SphereTarget")){
+            ot.gameObject.GetComponent<SphereTarget>().Hit(gameObject.tag);
+        }
+    }
+
+}
