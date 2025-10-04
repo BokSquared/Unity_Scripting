@@ -1,0 +1,23 @@
+P R O B L E M S
+
+- Twooo -> Where to put (Possibly OnTrigger)
+- No to Instatiate 
+- Toggle to rotate around character capsule 
+- Hit the wall when trigger (possibly shoot.performed += Shoot_Performed)
+
+
+
+
+- Final Platform trigger
+
+
+
+
+- FindObjectOfType in number 4 
+
+
+- Hit the door, the opposite door will up in Number 3
+
+
+
+-Bullet reference to Hit(string tc)
